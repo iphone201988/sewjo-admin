@@ -31,14 +31,20 @@ export const apis = createApi({
                 url: '/admin',
                 method: 'GET',
             }),
-            providesTags:[Tags.ADMIN]
+            providesTags: [Tags.ADMIN]
+        }),
+        adminDashboard: builder.query({
+            query: () => ({
+                url: '/admin/dashboard',
+                method: 'GET',
+            }),
         }),
         adminSignout: builder.mutation({
             query: () => ({
                 url: '/admin/sign-out',
                 method: 'POST'
             }),
-            invalidatesTags:[Tags.ADMIN]
+            invalidatesTags: [Tags.ADMIN]
         }),
 
     }),
@@ -47,5 +53,6 @@ export const apis = createApi({
 export const {
     useAdminLoginMutation,
     useAdminDetailsQuery,
-    useAdminSignoutMutation
+    useAdminSignoutMutation,
+    useAdminDashboardQuery
 } = apis;
