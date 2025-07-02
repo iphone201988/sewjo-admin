@@ -1,0 +1,120 @@
+@import "tailwindcss";
+@theme {
+    --breakpoint-*: initial;
+    --breakpoint-2xl: 1580px;
+    --breakpoint-xl: 1366px;
+    --breakpoint-mlg: 1280px;
+    --breakpoint-lg: 1024px;
+    --breakpoint-md: 767px;
+    --breakpoint-sm: 480px;
+  }
+  body{
+     font-family: "Poppins", sans-serif;
+  }
+
+  textarea:focus, input:focus{
+    outline: none;
+}
+  /* common */
+  .my-container{
+    width: 100%;
+    max-width: 1440px;
+    padding-left: 40px;
+    padding-right: 40px;
+    margin: 0 auto;
+  }
+ 
+  .btn-pri{
+    background-color: #FFCE4E;
+    color: #141010;
+    font-size: 16px;
+    font-weight: 600;
+    border-radius: 5px;
+    padding: 10px 24px;
+    cursor: pointer;
+    transition: all .4s ease;
+  }
+    .btn-pri:hover{
+      background-color: #FFDC7F;
+    }
+
+  ::placeholder{color: #BABABA; font-weight: 500;}
+
+  /* sidebar */
+.sidebar-link{
+  font-size: 18px;
+  font-weight: 600;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  padding: 7px 15px;
+  border-radius: 10px;
+}
+
+.sidebar-link.active{
+  background-color: #FFF2D0;
+  color: #AD7D00;
+}
+.sidebar-link img.active-icon{
+  display: none;
+}
+.sidebar-link.active img.active-icon{
+  display: block;
+}
+.sidebar-link.active img.not-active{
+  display: none;
+}
+
+
+/* responsive */
+@media only screen and (max-width: 1024px){
+.sidebar-link{font-size: 16px; font-weight: 500;}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
