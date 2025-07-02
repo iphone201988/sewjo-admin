@@ -1,21 +1,25 @@
-import React from 'react'
-import SideBar from './components/SideBar/SideBar'
-import Header from './components/Header/Header'
-import Dashboard from './components/Dashboard/Dashboard'
-import Challenge from './components/Challenge/Challenge'
+import React, { useState } from 'react';
+import SideBar from './components/SideBar/SideBar';
+import { Outlet } from 'react-router-dom';
 
 const AdminPortal = () => {
+  const [collapsed, setCollapsed] = useState(false); // State lifted
+
   return (
-    <div>
-      <SideBar/>
-   <main className='ml-[254px] absolute w-[calc(100%-254px)] min-h-[100vh] top-[0] px-[40px] py-[48px] bg-[#F9FAFB] max-lg:p-[20px] max-lg:w-full max-lg:ml-0'>
-    {/* <Dashboard/> */}
-    <Challenge/>
+    <div className="flex">
+      <SideBar collapsed={collapsed} setCollapsed={setCollapsed} />
 
-  </main>
-
+      <main
+        className={`absolute top-0 min-h-[100vh] transition-all duration-300 bg-[#F9FAFB] px-[40px] py-[48px] max-lg:p-[20px] max-lg:ml-0 max-lg:w-full ${
+          collapsed
+            ? 'ml-[80px] w-[calc(100%-80px)]'
+            : 'ml-[254px] w-[calc(100%-254px)]'
+        }`}
+      >
+        <Outlet />
+      </main>
     </div>
-  )
-}
+  );
+};
 
-export default AdminPortal
+export default AdminPortal;

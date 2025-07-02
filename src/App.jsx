@@ -1,15 +1,12 @@
-import AdminPortal from "./pages/AdminPortal/AdminPortal"
-import SignIn from "./pages/SignIn/SignIn"
+import { RouterProvider } from "react-router-dom";
+import router from "./pages/router";
 
 function App() {
-
-
   return (
     <>
-     <SignIn/>
-     {/* <AdminPortal/> */}
+      <RouterProvider router={router} />
     </>
-  )
+  );
 }
 
-export default App
+export default App;
