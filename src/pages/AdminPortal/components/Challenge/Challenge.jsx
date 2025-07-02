@@ -30,19 +30,6 @@ const Challenge = () => {
         <Prizes />
       </div>
 
-
-
-      {/* Success Toast */}
-      <div className="bg-white p-4 sm:p-[18px] flex items-start justify-between w-[90%] sm:w-full max-w-[390px] border border-[#7CDF79] rounded-[10px] fixed right-4 sm:right-6 bottom-6 sm:top-[calc(100vh-120px)] sm:bottom-auto z-50">
-        <div className="pr-2">
-          <p className='text-[16px] sm:text-[18px] font-semibold'>Prize Added</p>
-          <p className='text-[13px] sm:text-[14px] text-[#5C5C5C] font-semibold'>Success! Your new prize is now live.</p>
-        </div>
-        <button className='cursor-pointer shrink-0'>
-          <img className='w-4 sm:w-auto' src="src/assets/cross-icon.png" alt="Close" />
-        </button>
-      </div>
-
       {isPopupOpen && <AddNewPrizePopup onClose={handleClosePopup} />}
     </div>
   )

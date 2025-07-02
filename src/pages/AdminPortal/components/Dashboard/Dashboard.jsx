@@ -1,11 +1,16 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Header from '../Header/Header'
 import InfoBox from './components/InfoBox'
 import RecentActivityBox from './components/RecentActivityBox'
 import NoRecentActivity from './components/NoRecentActivity'
 import QuickActions from './components/QuickActions'
+import AddNewPrizePopup from '../Challenge/components/AddNewPrizePopup'
 
 const Dashboard = () => {
+  const [isPopupOpen, setIsPopupOpen] = useState(false);
+
+  const handleOpenPopup = () => setIsPopupOpen(true);
+  const handleClosePopup = () => setIsPopupOpen(false);
   return (
     <div>
       <Header />
@@ -26,9 +31,11 @@ const Dashboard = () => {
         <div className="right bg-white shadow-[0_2px_5px_rgba(0,0,0,0.25)] w-full max-w-[520px] border border-[#B5B5B5] rounded-[30px] p-[24px]">
           <h4 className='flex gap-[10px] items-center text-[22px] font-semibold'>Quick Actions </h4>
 
-          <QuickActions />
+          <QuickActions handleOpenPopup={handleOpenPopup} />
         </div>
       </div>
+
+      {isPopupOpen && <AddNewPrizePopup onClose={handleClosePopup} />}
 
     </div>
   )
