@@ -1,14 +1,24 @@
-import { createBrowserRouter } from "react-router-dom";
+import { createBrowserRouter, Navigate } from "react-router-dom";
 import Dashboard from "../AdminPortal/components/Dashboard/Dashboard";
 import AdminPortal from "../AdminPortal/AdminPortal";
 import SignIn from "../SignIn/SignIn";
 import Challenge from "../AdminPortal/components/Challenge/Challenge";
+import PublicRoute from "../../components/PublicRoute";
 
+const hasToken = () => !!localStorage.getItem("access_token");
 
 const router = createBrowserRouter([
   {
     path: "/login",
-    element: <SignIn />,
+    element: (
+      <PublicRoute>
+        <SignIn />
+      </PublicRoute>
+    ),
+  },
+  {
+    path: "/",
+    element: <Navigate to={hasToken() ? "/dashboard" : "/login"} replace />,
   },
   {
     path: "/",
@@ -19,9 +29,9 @@ const router = createBrowserRouter([
         element: <Dashboard />,
       },
       {
-        path:"challenges",
-        element:<Challenge/>
-      }
+        path: "challenges",
+        element: <Challenge />,
+      },
     ],
   },
 ]);

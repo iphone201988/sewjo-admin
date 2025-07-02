@@ -1,16 +1,37 @@
-import React, { useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import ham_icon from "../../../../assets/hamburger-icon.png";
+import { useAdminDetailsQuery } from "../../../../api";
 
-const SideBar = ({ collapsed, setCollapsed }) => {
+const SideBar = ({ collapsed, setCollapsed, handleSingout }) => {
   const location = useLocation();
+  const navigate = useNavigate();
   const currentPath = location.pathname;
-
+  const token = localStorage.getItem("access_token");
   const toggleSidebar = () => setCollapsed(!collapsed);
-
   const getLinkClass = (path) =>
     `sidebar-link ${currentPath === path ? 'active' : ''}`;
 
+  const {
+    data: adminData,
+    error: adminError,
+    isLoading
+  } = useAdminDetailsQuery(undefined, {
+    skip: !token,
+  });
+
+  useEffect(() => {
+    if (
+      adminError ||
+      (adminError?.status === 400 &&
+        adminError?.data?.message === "Invalid or malformed token") ||
+      (adminError?.status === 401 &&
+        adminError?.data?.message === "Authorization header must be in 'Bearer <token>' format")
+    ) {
+      localStorage.removeItem("access_token");
+      navigate("/login", { replace: true });
+    }
+  }, [adminError]);
   return (
     <div className="h-[100vh] max-lg:hidden">
       <div
@@ -72,13 +93,21 @@ const SideBar = ({ collapsed, setCollapsed }) => {
         {/* Profile Section */}
         <div className="flex flex-col items-start justify-between gap-[26px] mt-auto px-[7px] border-t border-[#BCBCBC] pt-[24px]">
           <div className="flex items-center gap-[10px]">
-            <span className="flex items-center justify-center w-[48px] h-[48px] text-[24px] font-semibold rounded-full bg-[#FFF6E0] text-[#AD7D00]">
-              I
+            <span className="flex items-center justify-center w-[48px] h-[48px] text-[24px] font-semibold rounded-full bg-[#FFF6E0] text-[#AD7D00] overflow-hidden">
+              {adminData?.admin?.profileImage ? (
+                <img
+                  src={adminData.admin.profileImage}
+                  alt="Profile"
+                  className="w-full h-full object-cover rounded-full"
+                />
+              ) : (
+                adminData?.admin?.displayName?.[0]?.toUpperCase() || "A"
+              )}
             </span>
             {!collapsed && (
               <div>
                 <h5 className="text-[18px] font-semibold text-[#2A2A2A] max-lg:text-[16px] max-lg:font-medium">
-                  Irina
+                  {adminData?.admin?.displayName || "Admin"}
                 </h5>
                 <p className="text-[18px] font-semibold text-[#818181] max-lg:text-[16px] max-lg:font-medium">
                   Administrator
@@ -87,11 +116,12 @@ const SideBar = ({ collapsed, setCollapsed }) => {
             )}
           </div>
 
-          <Link className="sidebar-link text-[#7C7C7C]" to="/login">
+          <div onClick={handleSingout} className="sidebar-link text-[#7C7C7C] cursor-pointer">
             <img src="src/assets/logout-icon.png" alt="" />
             {!collapsed && "Sign out"}
-          </Link>
+          </div>
         </div>
+
       </div>
     </div>
   );
