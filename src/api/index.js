@@ -39,6 +39,7 @@ export const apis = createApi({
                 url: '/admin/dashboard',
                 method: 'GET',
             }),
+            providesTags:[Tags.PRIZE]
         }),
         getPrizes: builder.query({
             query: ({search}) => ({

@@ -8,7 +8,8 @@ const RecentActivityBox = ({ activity }) => {
       return {
         label: 'Report',
         subLabel: `by ${reporter}`,
-        description: activity.description || 'No description',
+        // description: activity?.reason || activity.description,
+        description: activity?.reason !=="Other" ? activity?.reason: activity.description,
         time: new Date(activity.createdAt).toLocaleString('en-US', { hour: '2-digit', minute: '2-digit', hour12: true, day: '2-digit', month: 'short', year: 'numeric' }),
       };
     } else if (activity.type === 2) {
