@@ -13,12 +13,13 @@ const Challenge = () => {
   const [showAddToast, setShowAddToast] = useState(false);
   const [showEditToast, setShowEditToast] = useState(false);
   const [deletePrizes] = useDeletePrizesMutation();
+  const [search,setSearch] = useState("");
 
 
   const handleOpenPopup = () => setIsPopupOpen(true);
   const handleClosePopup = () => setIsPopupOpen(false);
 
-  const { data: prizeData, isLoading } = useGetPrizesQuery();
+  const { data: prizeData, isLoading } = useGetPrizesQuery({search});
 
 
   const handleDelete = async (id) => {
@@ -33,14 +34,11 @@ const Challenge = () => {
     }, 2000);
   }
 
-  console.log("showAddToast", showAddToast);
-
-
   return (
     <div className='w-full'>
       <Header />
       <div className="mb-6">
-        <SearchBar handleOpenPopup={handleOpenPopup} />
+        <SearchBar handleOpenPopup={handleOpenPopup} setSearch={setSearch}/>
         <button
           onClick={handleOpenPopup}
           className="mt-4 cursor-pointer text-sm sm:text-base text-white font-semibold bg-[#32302F] rounded-[5px] px-4 py-2 hover:bg-[#474747]"

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import Header from '../Header/Header';
 import InfoBox from './components/InfoBox';
 import RecentActivityBox from './components/RecentActivityBox';

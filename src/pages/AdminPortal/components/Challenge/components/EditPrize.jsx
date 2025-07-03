@@ -1,19 +1,22 @@
-import { useState } from 'react';
-import { useEditPrizesMutation } from '../../../../../api';
+import { useEffect, useState } from 'react';
+import { useEditPrizesMutation, useGetActiveChallengeQuery } from '../../../../../api';
 import { X } from "lucide-react"
 
 const EditPrizePopup = ({ onClose, data, selectedId, setShowEditToast }) => {
     const [editPrizes, { isLoading: loading }] = useEditPrizesMutation();
+      const {data:activeChallenge} = useGetActiveChallengeQuery();
+    
 
     const [prizeDescription, setPrizeDescription] = useState(data?.prizeDetails);
     const [brand, setBrand] = useState(data?.brand);
     const [week, setWeek] = useState(data?.week);
-    const [challengeId, setChallengeId] = useState(1);
+    const [challengeId, setChallengeId] = useState(activeChallenge?.data?.challenge?._id);
     const [file, setFile] = useState(data?.logo);
 
     const handleFileChange = (e) => {
         setFile(e.target.files[0]);
     };
+    
 
     const handleSubmit = async () => {
 
@@ -30,7 +33,7 @@ const EditPrizePopup = ({ onClose, data, selectedId, setShowEditToast }) => {
             const res = await editPrizes(formData).unwrap();
             console.log(res);
             if (res) {
-                onClose(); // close popup after success
+                onClose();
                 setShowEditToast(true);
             }
             setTimeout(() => {
@@ -40,6 +43,12 @@ const EditPrizePopup = ({ onClose, data, selectedId, setShowEditToast }) => {
             console.error("Upload failed", error);
         }
     };
+
+    useEffect(() => {
+    if (activeChallenge?.data?.challenge?._id) {
+        setChallengeId(activeChallenge.data.challenge._id);
+    }
+}, [activeChallenge]);
 
     return (
         <div className='flex items-center justify-center bg-[rgba(0,0,0,0.48)] backdrop-blur-[3px] fixed overflow-auto top-0 left-0 w-full h-full z-[99999999] p-[20px] max-sm:h-auto'>
@@ -114,7 +123,7 @@ const EditPrizePopup = ({ onClose, data, selectedId, setShowEditToast }) => {
                             onChange={(e) => setChallengeId(e.target.value)}
                         >
                             <option value="">Select Challenge</option>
-                            <option value="684ffb204bdcc18d2bf39256">Challenge 1</option>
+                            <option value={activeChallenge?.data?.challenge?._id}>{activeChallenge?.data?.challenge?.title}</option>
                         </select>
                     </label>
 

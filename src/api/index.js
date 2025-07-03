@@ -41,11 +41,17 @@ export const apis = createApi({
             }),
         }),
         getPrizes: builder.query({
-            query: () => ({
-                url: '/admin/get-allprizes',
+            query: ({search}) => ({
+                url: `/admin/get-allprizes?search=${search}`,
                 method: 'GET',
             }),
             providesTags: [Tags.PRIZE]
+        }),
+        getActiveChallenge: builder.query({
+            query: () => ({
+                url: `/challenge/active`,
+                method: 'GET',
+            })
         }),
         addPrizes: builder.mutation({
             query: (body) => ({
@@ -89,5 +95,6 @@ export const {
     useGetPrizesQuery,
     useAddPrizesMutation,
     useEditPrizesMutation,
-    useDeletePrizesMutation
+    useDeletePrizesMutation,
+    useGetActiveChallengeQuery
 } = apis;

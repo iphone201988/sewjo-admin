@@ -4,6 +4,7 @@ import AdminPortal from "../AdminPortal/AdminPortal";
 import SignIn from "../SignIn/SignIn";
 import Challenge from "../AdminPortal/components/Challenge/Challenge";
 import PublicRoute from "../../components/PublicRoute";
+import PrivateRoute from "../../components/PrivateRoute";
 
 const hasToken = () => !!localStorage.getItem("access_token");
 
@@ -22,7 +23,12 @@ const router = createBrowserRouter([
   },
   {
     path: "/",
-    element: <AdminPortal />,
+    element:
+      <PrivateRoute>
+        <AdminPortal />
+      </PrivateRoute>
+
+    ,
     children: [
       {
         path: "dashboard",

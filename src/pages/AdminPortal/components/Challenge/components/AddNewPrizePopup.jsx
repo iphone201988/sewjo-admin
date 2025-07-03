@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
-import { useAddPrizesMutation } from '../../../../../api';
+import { useAddPrizesMutation, useGetActiveChallengeQuery } from '../../../../../api';
 import { X } from "lucide-react"
 
 const AddNewPrizePopup = ({ onClose,setShowAddToast }) => {
   const [addPrizes,{isLoading:loading}] = useAddPrizesMutation();
+  const {data:activeChallenge} = useGetActiveChallengeQuery();
 
-
+  console.log("activeChallenge",activeChallenge?.data?.challenge?._id);
+  
   const [prizeDescription, setPrizeDescription] = useState('');
   const [brand, setBrand] = useState('');
   const [week, setWeek] = useState('');
@@ -113,8 +115,7 @@ const AddNewPrizePopup = ({ onClose,setShowAddToast }) => {
               onChange={(e) => setChallengeId(e.target.value)}
             >
               <option value="">Select Challenge</option>
-              <option value="684ffb204bdcc18d2bf39256">Challenge 1</option>
-              <option value="685926083c9d9aef2d9ad153">What's In Your Stash? #StashConfessions</option>
+              <option value={activeChallenge?.data?.challenge?._id}>{activeChallenge?.data?.challenge?.title}</option>
             </select>
           </label>
 
