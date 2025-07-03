@@ -47,7 +47,7 @@ const Dashboard = () => {
           {isLoading ? (
             <QuickActionsSkeleton />
           ) : (
-            <QuickActions handleOpenPopup={handleOpenPopup} dashboardData={dashboardData} />
+            <QuickActions handleOpenPopup={handleOpenPopup} dashboardData={dashboardData?.data} />
           )}
         </div>
       </div>

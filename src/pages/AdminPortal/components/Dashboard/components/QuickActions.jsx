@@ -14,7 +14,7 @@ const QuickActions = ({ handleOpenPopup, dashboardData }) => {
       <div className="flex items-center justify-between py-[15px] px-[24px] border border-[#A4A4A4] rounded-[10px] max-md:p-[12px]">
         <div className="">
           <p className='text-[18px] font-semibold max-md:text-[16px]'>Review Patterns Requests</p>
-          <p className='text-[14px] text-[#7A7A7A] font-semibold'>{dashboardData?.pendingPattern} pending requests need attention</p>
+          <p className='text-[14px] text-[#7A7A7A] font-semibold'>{dashboardData?.pendingPattern || "0"} pending requests need attention</p>
         </div>
 
       </div>
@@ -22,7 +22,7 @@ const QuickActions = ({ handleOpenPopup, dashboardData }) => {
       <div className="flex items-center justify-between py-[15px] px-[24px] border border-[#A4A4A4] rounded-[10px] max-md:p-[12px]">
         <div className="">
           <p className='text-[18px] font-semibold max-md:text-[16px]'>Handle Reported Accounts</p>
-          <p className='text-[14px] text-[#7A7A7A] font-semibold'>{dashboardData?.totalReviewedAccount} Reported Accounts</p>
+          <p className='text-[14px] text-[#7A7A7A] font-semibold'>{dashboardData?.totalReviewedAccount || "0"} Reported Accounts</p>
         </div>
 
       </div>

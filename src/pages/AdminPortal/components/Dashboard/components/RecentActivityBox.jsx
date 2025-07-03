@@ -4,7 +4,7 @@ const RecentActivityBox = ({ activity }) => {
   const getActivityDetails = () => {
     if (activity.type === 1) {
       // Type 1: Report activity
-      const reporter = activity.reporter ? activity.reporter.displayName : 'Anonymous';
+      const reporter = activity.reporter ? activity?.reporter?.displayName : 'Anonymous';
       return {
         label: 'Report',
         subLabel: `by ${reporter}`,
@@ -13,7 +13,7 @@ const RecentActivityBox = ({ activity }) => {
       };
     } else if (activity.type === 2) {
       // Type 2: Pattern request activity
-      const updatedBy = activity.updatedBy.displayName;
+      const updatedBy = activity?.updatedBy?.displayName;
       return {
         label: 'Pattern Request',
         subLabel: `Requested ${activity.field} change`,

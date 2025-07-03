@@ -2,7 +2,8 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 const BASE_URL = import.meta.env.VITE_BASE_URL;
 
 const Tags = {
-    ADMIN: "ADMIN"
+    ADMIN: "ADMIN",
+    PRIZE: "PRIZE"
 }
 
 export const apis = createApi({
@@ -39,6 +40,36 @@ export const apis = createApi({
                 method: 'GET',
             }),
         }),
+        getPrizes: builder.query({
+            query: () => ({
+                url: '/admin/get-allprizes',
+                method: 'GET',
+            }),
+            providesTags: [Tags.PRIZE]
+        }),
+        addPrizes: builder.mutation({
+            query: (body) => ({
+                url: '/admin/add-prize',
+                method: 'POST',
+                body
+            }),
+            invalidatesTags: [Tags.PRIZE]
+        }),
+        editPrizes: builder.mutation({
+            query: (body) => ({
+                url: '/admin/edit-prize',
+                method: 'POST',
+                body
+            }),
+            invalidatesTags: [Tags.PRIZE]
+        }),
+        deletePrizes: builder.mutation({
+            query: (prizeId) => ({
+                url: `/admin/delete-prize/${prizeId}`,
+                method: 'DELETE',
+            }),
+            invalidatesTags: [Tags.PRIZE]
+        }),
         adminSignout: builder.mutation({
             query: () => ({
                 url: '/admin/sign-out',
@@ -54,5 +85,9 @@ export const {
     useAdminLoginMutation,
     useAdminDetailsQuery,
     useAdminSignoutMutation,
-    useAdminDashboardQuery
+    useAdminDashboardQuery,
+    useGetPrizesQuery,
+    useAddPrizesMutation,
+    useEditPrizesMutation,
+    useDeletePrizesMutation
 } = apis;
