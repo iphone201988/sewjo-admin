@@ -2,6 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { useEditPrizesMutation, useGetActiveChallengeQuery } from '../../../../../api';
 import { X } from 'lucide-react';
+import Cross from "../../../../../assets/cross-icon.png";
+import Upload from "../../../../../assets/upload-pic.png";
+
 
 const EditPrizePopup = ({ onClose, data, selectedId, setShowEditToast }) => {
   const [editPrizes, { isLoading: loading }] = useEditPrizesMutation();
@@ -74,7 +77,7 @@ const EditPrizePopup = ({ onClose, data, selectedId, setShowEditToast }) => {
         <div className="flex items-center justify-between mb-[20px]">
           <h5 className="text-[24px] font-semibold">Edit Prize</h5>
           <button onClick={onClose} className="cursor-pointer">
-            <img src="src/assets/cross-icon.png" alt="Close" />
+            <img src={Cross} alt="Close" />
           </button>
         </div>
 
@@ -102,7 +105,7 @@ const EditPrizePopup = ({ onClose, data, selectedId, setShowEditToast }) => {
               </div>
             ) : (
               <label className="flex items-center flex-col justify-center gap-[10px] border border-dashed border-[#9F9D9E] rounded-[6px] p-[24px] cursor-pointer">
-                <img src="src/assets/upload-pic.png" alt="Upload" />
+                <img src={Upload} alt="Upload" />
                 <p className="font-semibold text-[#9F9D9E]">Upload Logo</p>
                 <input
                   type="file"

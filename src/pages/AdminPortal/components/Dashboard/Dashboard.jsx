@@ -9,6 +9,7 @@ import { useAdminDashboardQuery } from '../../../../api';
 import InfoBoxSkeleton from '../../../../components/Skeleton/InfoBoxSkelton';
 import RecentActivitySkeleton from '../../../../components/Skeleton/RecentActivityskelton';
 import QuickActionsSkeleton from '../../../../components/Skeleton/QuickActionSkeleton';
+import RecentIcons from "../../../../assets/recent-activity.png"
 
 const Dashboard = () => {
   const [isPopupOpen, setIsPopupOpen] = useState(false);
@@ -30,7 +31,7 @@ const Dashboard = () => {
           className="left bg-white shadow-[0_2px_5px_rgba(0,0,0,0.25)] w-full max-w-[520px] min-h-[550px] border border-[#B5B5B5] rounded-[30px] p-[24px] overflow-y-auto max-sm:p-[14px]"
           style={{ maxHeight: '500px', scrollbarWidth: 'thin', scrollbarColor: '#00000000 #00000000' }}
         >
-          <h4 className='flex gap-[10px] items-center text-[22px] font-semibold max-md:text-[18px]'><img src="src/assets/recent-activity.png" alt="" />Recent Activity </h4>
+          <h4 className='flex gap-[10px] items-center text-[22px] font-semibold max-md:text-[18px]'><img src={RecentIcons} alt="RecentIcons" />Recent Activity </h4>
           {isLoading ? (
             <RecentActivitySkeleton />
           ) : dashboardData?.data?.recentActivity?.length > 0 ? (

@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useAddPrizesMutation, useGetActiveChallengeQuery } from '../../../../../api';
 import { X } from 'lucide-react';
+import Cross from "../../../../../assets/cross-icon.png";
+import Upload from "../../../../../assets/upload-pic.png";
 
 const AddNewPrizePopup = ({ onClose, setShowAddToast }) => {
   const [addPrizes, { isLoading: loading }] = useAddPrizesMutation();
@@ -60,7 +62,7 @@ const AddNewPrizePopup = ({ onClose, setShowAddToast }) => {
         <div className="flex items-center justify-between mb-[20px]">
           <h5 className="text-[24px] font-semibold">Add New Prize</h5>
           <button onClick={onClose} className="cursor-pointer">
-            <img src="src/assets/cross-icon.png" alt="Close" />
+            <img src={Cross} alt="Close" />
           </button>
         </div>
 
@@ -88,7 +90,7 @@ const AddNewPrizePopup = ({ onClose, setShowAddToast }) => {
               </div>
             ) : (
               <label className="flex items-center flex-col justify-center gap-[10px] border border-dashed border-[#9F9D9E] rounded-[6px] p-[24px] cursor-pointer">
-                <img src="src/assets/upload-pic.png" alt="Upload" />
+                <img src={Upload} alt="Upload" />
                 <p className="font-semibold text-[#9F9D9E]">Upload Logo</p>
                 <input
                   type="file"

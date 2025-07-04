@@ -1,4 +1,5 @@
 import React from 'react'
+import Plus from "../../../../../assets/plus-icon.png"
 
 const QuickActions = ({ handleOpenPopup, dashboardData }) => {
   return (
@@ -8,7 +9,7 @@ const QuickActions = ({ handleOpenPopup, dashboardData }) => {
           <p className='text-[18px] font-semibold max-md:text-[16px]'>Add New Prize</p>
           <p className='text-[14px] text-[#7A7A7A] font-semibold'>Upload a new prize  to challenges.</p>
         </div>
-        <button onClick={handleOpenPopup} className=' cursor-pointer'><img src="src/assets/plus-icon.png" alt="" /></button>
+        <button onClick={handleOpenPopup} className=' cursor-pointer'><img src={Plus} alt="" /></button>
       </div>
 
       <div className="flex items-center justify-between py-[15px] px-[24px] border border-[#A4A4A4] rounded-[10px] max-md:p-[12px]">

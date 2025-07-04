@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types';
+import Xicon from "../assets/cross-icon.png"
 
 const Toast = ({
     message,
@@ -27,7 +28,7 @@ const Toast = ({
                 <p className={`text-[13px] sm:text-[14px] font-semibold ${descriptionColor}`}>{subMessage}</p>
             </div>
             <button className='cursor-pointer shrink-0' onClick={onClose}>
-                <img className='w-4 sm:w-auto' src="src/assets/cross-icon.png" alt="Close" />
+                <img className='w-4 sm:w-auto' src={Xicon} alt="Close" />
             </button>
         </div>
     );

@@ -1,3 +1,7 @@
+import CurrentPrizeIcon from "../../../../../assets/current-prize.png";
+import PendingRequest from "../../../../../assets/pending-requests.png";
+import ReportedAccountIcon from "../../../../../assets/reported-accounts.png";
+
 
 
 const InfoBox = ({ dashboardData }) => {
@@ -8,7 +12,7 @@ const InfoBox = ({ dashboardData }) => {
           <h6 className="text-[#6A6A6A] text-[15px] font-extrabold">Current Prizes</h6>
           <h5 className="text-[28px] font-extrabold">{dashboardData?.totalPrizes}</h5>
         </div>
-        <img src="src/assets/current-prize.png" alt="" />
+        <img src={CurrentPrizeIcon} alt="" />
       </div>
 
       <div className="flex bg-white justify-between items-center px-[24px] py-[14px] border border-[#C3C3C3] rounded-[10px] w-full max-w-[330px] max-md:p-[14px]">
@@ -17,7 +21,7 @@ const InfoBox = ({ dashboardData }) => {
           <h5 className="text-[28px] font-extrabold">{dashboardData?.totalPending
           }</h5>
         </div>
-        <img src="src/assets/pending-requests.png" alt="" />
+        <img src={PendingRequest} alt="" />
       </div>
 
       <div className="flex bg-white justify-between items-center px-[24px] py-[14px] border border-[#C3C3C3] rounded-[10px] w-full max-w-[330px] max-md:p-[14px]">
@@ -26,7 +30,7 @@ const InfoBox = ({ dashboardData }) => {
           <h5 className="text-[28px] font-extrabold">{dashboardData?.totalPrizes
           }</h5>
         </div>
-        <img src="src/assets/reported-accounts.png" alt="" />
+        <img src={ReportedAccountIcon} alt="" />
       </div>
     </div>
   )

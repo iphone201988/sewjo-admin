@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import EditPrizePopup from './EditPrize';
 import { useEditPrizesMutation } from '../../../../../api';
 import DeleteConfirmationPopup from './DeletePrize';
+import EditIcon from "../../../../../assets/edit-icon.png"
+import TrashIcon from "../../../../../assets/trash-icon.png"
 
 const Prizes = ({ detail, handleDelete, setShowEditToast }) => {
   const [isPopupOpen, setIsPopupOpen] = useState(false);
@@ -71,7 +73,7 @@ const Prizes = ({ detail, handleDelete, setShowEditToast }) => {
           onClick={() => setIsPopupOpen(true)}
           className="flex items-center cursor-pointer justify-center gap-[12px] text-[14px] font-semibold text-[#41403F] p-[7px] w-full border border-[#DFDFDF] rounded-[5px] hover:bg-[#F3F3F3]"
         >
-          <img src="/src/assets/edit-icon.png" alt="Edit" />
+          <img src={EditIcon} alt="Edit" />
           Edit
         </button>
 
@@ -79,7 +81,7 @@ const Prizes = ({ detail, handleDelete, setShowEditToast }) => {
           onClick={() => setShowDeleteConfirm(true)} // open confirmation popup
           className="w-[45px] h-[45px] flex cursor-pointer items-center justify-center border border-[#DFDFDF] rounded-[5px] hover:bg-[#F3F3F3]"
         >
-          <img src="/src/assets/trash-icon.png" alt="Delete" />
+          <img src={TrashIcon} alt="Delete" />
         </button>
       </div>
 

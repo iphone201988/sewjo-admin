@@ -1,6 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import ham_icon from "../../../../assets/hamburger-icon.png";
+import active_icon_1 from "../../../../assets/active-icon-1.png";
+import icon_1 from "../../../../assets/icon-1.png";
+import active_icon_2 from "../../../../assets/active-icon-2.png";
+import icon_2 from "../../../../assets/icon-2.png";
+import logout_icon from "../../../../assets/logout-icon.png";
+
 import { useAdminDetailsQuery } from "../../../../api";
 
 const SideBar = ({ collapsed, setCollapsed, handleSingout }) => {
@@ -83,10 +89,10 @@ const SideBar = ({ collapsed, setCollapsed, handleSingout }) => {
       {/* Sidebar */}
       <div
         className={`flex flex-col fixed left-0 top-0 bg-white z-[1000] py-[20px] h-full transition-all duration-300 ${isMobile
-            ? `w-[280px] min-w-[280px] max-w-[280px] ${mobileMenuOpen ? 'translate-x-0' : '-translate-x-full'}`
-            : collapsed
-              ? "w-[80px] min-w-[80px] max-w-[80px] max-lg:w-[70px] max-lg:min-w-[70px]"
-              : "w-[254px] min-w-[254px] max-w-[254px] max-lg:w-[200px] max-lg:min-w-[200px]"
+          ? `w-[280px] min-w-[280px] max-w-[280px] ${mobileMenuOpen ? 'translate-x-0' : '-translate-x-full'}`
+          : collapsed
+            ? "w-[80px] min-w-[80px] max-w-[80px] max-lg:w-[70px] max-lg:min-w-[70px]"
+            : "w-[254px] min-w-[254px] max-w-[254px] max-lg:w-[200px] max-lg:min-w-[200px]"
           } shadow-[0_13px_9px_rgba(0,0,0,0.25)]`}
       >
         {/* Hamburger icon - Only show on desktop */}
@@ -113,8 +119,9 @@ const SideBar = ({ collapsed, setCollapsed, handleSingout }) => {
             to="/dashboard"
             onClick={isMobile ? handleMobileMenuItemClick : undefined}
           >
-            <img className="active-icon" src="src/assets/active-icon-1.png" alt="" />
-            <img className="not-active" src="src/assets/icon-1.png" alt="" />
+            <img className="active-icon" src={active_icon_1} alt="" />
+            <img className="not-active" src={icon_1} alt="" />
+
             {(isMobile || !collapsed) && "Dashboard"}
           </Link>
 
@@ -123,8 +130,9 @@ const SideBar = ({ collapsed, setCollapsed, handleSingout }) => {
             to="/challenges"
             onClick={isMobile ? handleMobileMenuItemClick : undefined}
           >
-            <img className="active-icon" src="src/assets/active-icon-2.png" alt="" />
-            <img className="not-active" src="src/assets/icon-2.png" alt="" />
+            <img className="active-icon" src={active_icon_2} alt="" />
+            <img className="not-active" src={icon_2} alt="" />
+
             {(isMobile || !collapsed) && "Challenges"}
           </Link>
 
@@ -186,7 +194,8 @@ const SideBar = ({ collapsed, setCollapsed, handleSingout }) => {
             }}
             className="sidebar-link text-[#7C7C7C] cursor-pointer"
           >
-            <img src="src/assets/logout-icon.png" alt="" />
+            <img src={logout_icon} alt="" />
+
             {(isMobile || !collapsed) && "Sign out"}
           </div>
         </div>
