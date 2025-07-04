@@ -8,6 +8,9 @@ const SideBar = ({ collapsed, setCollapsed, handleSingout }) => {
   const navigate = useNavigate();
   const currentPath = location.pathname;
   const token = localStorage.getItem("access_token");
+  const [isMobile, setIsMobile] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
   const toggleSidebar = () => setCollapsed(!collapsed);
   const getLinkClass = (path) =>
     `sidebar-link ${currentPath === path ? 'active' : ''}`;
@@ -19,6 +22,28 @@ const SideBar = ({ collapsed, setCollapsed, handleSingout }) => {
   } = useAdminDetailsQuery(undefined, {
     skip: !token,
   });
+
+  // Check if device is mobile
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 1024);
+    };
+
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
+  // Handle mobile menu toggle
+  const handleMobileMenuToggle = () => {
+    setMobileMenuOpen(!mobileMenuOpen);
+  };
+
+  // Handle mobile menu item click
+  const handleMobileMenuItemClick = () => {
+    setMobileMenuOpen(false);
+  };
 
   useEffect(() => {
     if (
@@ -32,37 +57,75 @@ const SideBar = ({ collapsed, setCollapsed, handleSingout }) => {
       navigate("/login", { replace: true });
     }
   }, [adminError]);
+
   return (
     <div className="h-[100vh]">
+      {/* Mobile Hamburger Menu - Fixed on top right */}
+      {isMobile && (
+        <>
+          <button
+            onClick={handleMobileMenuToggle}
+            className="fixed top-4 right-4 z-[1001] cursor-pointer bg-white p-2 rounded-md shadow-lg lg:hidden"
+          >
+            <img src={ham_icon} alt="Toggle" className="w-6 h-6" />
+          </button>
+
+          {/* Mobile Overlay */}
+          {mobileMenuOpen && (
+            <div
+              className="fixed inset-0 bg-black bg-opacity-50 z-[999] lg:hidden"
+              onClick={handleMobileMenuToggle}
+            />
+          )}
+        </>
+      )}
+
+      {/* Sidebar */}
       <div
-        className={`flex flex-col fixed left-0 top-0 bg-white z-[999] py-[20px] h-full transition-all duration-300 ${collapsed ? "w-[80px] min-w-[80px] max-w-[80px] max-lg:w-[70px] max-lg:min-w-[70px]" : "w-[254px] min-w-[254px] max-w-[254px] max-lg:w-[200px] max-lg:min-w-[200px]"
+        className={`flex flex-col fixed left-0 top-0 bg-white z-[1000] py-[20px] h-full transition-all duration-300 ${isMobile
+            ? `w-[280px] min-w-[280px] max-w-[280px] ${mobileMenuOpen ? 'translate-x-0' : '-translate-x-full'}`
+            : collapsed
+              ? "w-[80px] min-w-[80px] max-w-[80px] max-lg:w-[70px] max-lg:min-w-[70px]"
+              : "w-[254px] min-w-[254px] max-w-[254px] max-lg:w-[200px] max-lg:min-w-[200px]"
           } shadow-[0_13px_9px_rgba(0,0,0,0.25)]`}
       >
-        {/* Hamburger icon */}
-        <button onClick={toggleSidebar} className="ml-auto pr-[20px] cursor-pointer">
-          <img src={ham_icon} alt="Toggle" />
-        </button>
+        {/* Hamburger icon - Only show on desktop */}
+        {!isMobile && (
+          <button onClick={toggleSidebar} className="ml-auto pr-[20px] cursor-pointer">
+            <img src={ham_icon} alt="Toggle" />
+          </button>
+        )}
 
         {/* Title */}
         <Link
-          className={`mb-[30px] mt-[10px] text-[18px] text-[#41403F] text-center font-black block transition-all duration-300 ${collapsed ? "opacity-0 h-0 overflow-hidden" : ""}`}
+          className={`mb-[30px] mt-[10px] text-[18px] text-[#41403F] text-center font-black block transition-all duration-300 ${!isMobile && collapsed ? "opacity-0 h-0 overflow-hidden" : ""
+            }`}
           to="/"
+          onClick={isMobile ? handleMobileMenuItemClick : undefined}
         >
           Admin Portal
         </Link>
 
         {/* Sidebar Links */}
         <div className="side-bar flex flex-col gap-[20px] w-full px-[7px] max-lg:gap-[16px]">
-          <Link className={getLinkClass("/dashboard")} to="/dashboard">
+          <Link
+            className={getLinkClass("/dashboard")}
+            to="/dashboard"
+            onClick={isMobile ? handleMobileMenuItemClick : undefined}
+          >
             <img className="active-icon" src="src/assets/active-icon-1.png" alt="" />
             <img className="not-active" src="src/assets/icon-1.png" alt="" />
-            {!collapsed && "Dashboard"}
+            {(isMobile || !collapsed) && "Dashboard"}
           </Link>
 
-          <Link className={getLinkClass("/challenges")} to="/challenges">
+          <Link
+            className={getLinkClass("/challenges")}
+            to="/challenges"
+            onClick={isMobile ? handleMobileMenuItemClick : undefined}
+          >
             <img className="active-icon" src="src/assets/active-icon-2.png" alt="" />
             <img className="not-active" src="src/assets/icon-2.png" alt="" />
-            {!collapsed && "Challenges"}
+            {(isMobile || !collapsed) && "Challenges"}
           </Link>
 
           {/* <Link className={getLinkClass("/manual-points")} to="/manual-points">
@@ -104,7 +167,7 @@ const SideBar = ({ collapsed, setCollapsed, handleSingout }) => {
                 adminData?.admin?.displayName?.[0]?.toUpperCase() || "A"
               )}
             </span>
-            {!collapsed && (
+            {(isMobile || !collapsed) && (
               <div>
                 <h5 className="text-[18px] font-semibold text-[#2A2A2A] max-lg:text-[16px] max-lg:font-medium">
                   {adminData?.admin?.displayName || "Admin"}
@@ -116,9 +179,15 @@ const SideBar = ({ collapsed, setCollapsed, handleSingout }) => {
             )}
           </div>
 
-          <div onClick={handleSingout} className="sidebar-link text-[#7C7C7C] cursor-pointer">
+          <div
+            onClick={() => {
+              handleSingout();
+              if (isMobile) handleMobileMenuItemClick();
+            }}
+            className="sidebar-link text-[#7C7C7C] cursor-pointer"
+          >
             <img src="src/assets/logout-icon.png" alt="" />
-            {!collapsed && "Sign out"}
+            {(isMobile || !collapsed) && "Sign out"}
           </div>
         </div>
 

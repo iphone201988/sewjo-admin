@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
 import EditPrizePopup from './EditPrize';
 import { useEditPrizesMutation } from '../../../../../api';
+import DeleteConfirmationPopup from './DeletePrize';
 
 const Prizes = ({ detail, handleDelete, setShowEditToast }) => {
   const [isPopupOpen, setIsPopupOpen] = useState(false);
-  const [active, setActive] = useState(detail.isActive ||true);
+  const [showDeleteConfirm, setShowDeleteConfirm] = useState(false); // new state
+  const [active, setActive] = useState(detail.isActive || true);
   const [editPrizes] = useEditPrizesMutation();
 
   const {
@@ -23,7 +25,7 @@ const Prizes = ({ detail, handleDelete, setShowEditToast }) => {
       await editPrizes({ prizeId: _id, isActive: updatedStatus });
     } catch (err) {
       console.error('Failed to update active status:', err);
-      setActive(!active);
+      setActive(!updatedStatus);
     }
   };
 
@@ -74,7 +76,7 @@ const Prizes = ({ detail, handleDelete, setShowEditToast }) => {
         </button>
 
         <button
-          onClick={() => handleDelete(_id)}
+          onClick={() => setShowDeleteConfirm(true)} // open confirmation popup
           className="w-[45px] h-[45px] flex cursor-pointer items-center justify-center border border-[#DFDFDF] rounded-[5px] hover:bg-[#F3F3F3]"
         >
           <img src="/src/assets/trash-icon.png" alt="Delete" />
@@ -87,6 +89,16 @@ const Prizes = ({ detail, handleDelete, setShowEditToast }) => {
           data={detail}
           selectedId={_id}
           setShowEditToast={setShowEditToast}
+        />
+      )}
+
+      {showDeleteConfirm && (
+        <DeleteConfirmationPopup
+          onClose={() => setShowDeleteConfirm(false)}
+          onConfirm={() => {
+            handleDelete(_id);
+            setShowDeleteConfirm(false);
+          }}
         />
       )}
     </div>

@@ -8,10 +8,21 @@ const AdminPortal = () => {
   const navigate = useNavigate();
   const [collapsed, setCollapsed] = useState(false); // State lifted
   const [showToast, setShowToast] = useState(false); // ✅ toast state
+  const [isMobile, setIsMobile] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [adminSignout] = useAdminSignoutMutation();
 
-
-
+  // Check if device is mobile
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 1024);
+    };
+    
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   const handleSingout = async () => {
     const res = adminSignout().unwrap();
@@ -27,13 +38,23 @@ const AdminPortal = () => {
 
   return (
     <div className="flex">
-      <SideBar collapsed={collapsed} setCollapsed={setCollapsed} handleSingout={handleSingout} />
+      <SideBar 
+        collapsed={collapsed} 
+        setCollapsed={setCollapsed} 
+        handleSingout={handleSingout}
+        isMobile={isMobile}
+        mobileMenuOpen={mobileMenuOpen}
+        setMobileMenuOpen={setMobileMenuOpen}
+      />
 
       <main
-        className={`absolute top-0 min-h-[100vh] transition-all duration-300 bg-[#F9FAFB] px-[40px] py-[48px] max-lg:p-[20px] max-lg:ml-[70px]  max-lg:w-[calc(100%-70px)] ${collapsed
-          ? 'ml-[80px] w-[calc(100%-80px)]'
-          : 'ml-[254px] w-[calc(100%-254px)]'
-          }`}
+        className={`min-h-[100vh] transition-all duration-300 bg-[#F9FAFB] px-[40px] py-[48px] max-lg:p-[20px] ${
+          isMobile 
+            ? 'w-full' // Full width on mobile
+            : collapsed
+              ? 'ml-[80px] w-[calc(100%-80px)]' // Collapsed desktop
+              : 'ml-[254px] w-[calc(100%-254px)]' // Expanded desktop
+        }`}
       >
         <Outlet />
 
@@ -47,7 +68,6 @@ const AdminPortal = () => {
             titleColor="text-black"
             descriptionColor="text-[#5C5C5C]"
           />
-
         )}
       </main>
     </div>

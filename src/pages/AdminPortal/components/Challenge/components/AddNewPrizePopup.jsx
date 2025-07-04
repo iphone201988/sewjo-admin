@@ -177,27 +177,6 @@ const AddNewPrizePopup = ({ onClose, setShowAddToast }) => {
             )}
           </label>
 
-          <label className="flex flex-col text-[16px] font-semibold gap-[9px]">
-            Time Zone
-            <select
-              className="border text-[14px] border-[#DFDFDF] py-[10.5px] px-[12px] rounded-[5px]"
-              {...register('timeZone', {
-                required: 'Time zone is required',
-              })}
-            >
-              <option value="">Select Time Zone</option>
-              <option value="ET">Eastern Time (ET)</option>
-              <option value="PT">Pacific Time (PT)</option>
-              <option value="CT">Central Time (CT)</option>
-              <option value="MT">Mountain Time (MT)</option>
-              <option value="GMT">Greenwich Mean Time (GMT)</option>
-              <option value="IST">India Standard Time (IST)</option>
-            </select>
-            {errors.timeZone && (
-              <p className="text-red-500 text-[12px] mt-[4px]">{errors.timeZone.message}</p>
-            )}
-          </label>
-
           <button
             type="submit"
             disabled={loading}
