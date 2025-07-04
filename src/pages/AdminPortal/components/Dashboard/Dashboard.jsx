@@ -25,12 +25,12 @@ const Dashboard = () => {
 
       </div>
 
-      <div className="mt-[40px] flex gap-[40px] max-lg:gap-[24px] max-md:flex-col">
+      <div className="mt-[40px] flex gap-[40px] max-lg:gap-[24px] max-md:flex-col max-lg:mt-[24px]">
         <div
-          className="left bg-white shadow-[0_2px_5px_rgba(0,0,0,0.25)] w-full max-w-[520px] min-h-[550px] border border-[#B5B5B5] rounded-[30px] p-[24px] overflow-y-auto"
+          className="left bg-white shadow-[0_2px_5px_rgba(0,0,0,0.25)] w-full max-w-[520px] min-h-[550px] border border-[#B5B5B5] rounded-[30px] p-[24px] overflow-y-auto max-sm:p-[14px]"
           style={{ maxHeight: '500px', scrollbarWidth: 'thin', scrollbarColor: '#00000000 #00000000' }}
         >
-          <h4 className='flex gap-[10px] items-center text-[22px] font-semibold'><img src="src/assets/recent-activity.png" alt="" />Recent Activity </h4>
+          <h4 className='flex gap-[10px] items-center text-[22px] font-semibold max-md:text-[18px]'><img src="src/assets/recent-activity.png" alt="" />Recent Activity </h4>
           {isLoading ? (
             <RecentActivitySkeleton />
           ) : dashboardData?.data?.recentActivity?.length > 0 ? (
@@ -42,8 +42,8 @@ const Dashboard = () => {
           )}
 
         </div>
-        <div className="right bg-white shadow-[0_2px_5px_rgba(0,0,0,0.25)] w-full max-w-[520px] border border-[#B5B5B5] rounded-[30px] p-[24px]">
-          <h4 className='flex gap-[10px] items-center text-[22px] font-semibold'>Quick Actions </h4>
+        <div className="right bg-white shadow-[0_2px_5px_rgba(0,0,0,0.25)] w-full max-w-[520px] border border-[#B5B5B5] rounded-[30px] p-[24px] max-sm:p-[14px]">
+          <h4 className='flex gap-[10px] items-center text-[22px] font-semibold max-md:text-[18px]'>Quick Actions </h4>
           {isLoading ? (
             <QuickActionsSkeleton />
           ) : (

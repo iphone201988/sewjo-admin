@@ -33,9 +33,9 @@ const SideBar = ({ collapsed, setCollapsed, handleSingout }) => {
     }
   }, [adminError]);
   return (
-    <div className="h-[100vh] max-lg:hidden">
+    <div className="h-[100vh]">
       <div
-        className={`flex flex-col fixed left-0 top-0 bg-white z-[999] py-[20px] h-full transition-all duration-300 ${collapsed ? "w-[80px] min-w-[80px] max-w-[80px]" : "w-[254px] min-w-[254px] max-w-[254px]"
+        className={`flex flex-col fixed left-0 top-0 bg-white z-[999] py-[20px] h-full transition-all duration-300 ${collapsed ? "w-[80px] min-w-[80px] max-w-[80px] max-lg:w-[70px] max-lg:min-w-[70px]" : "w-[254px] min-w-[254px] max-w-[254px] max-lg:w-[200px] max-lg:min-w-[200px]"
           } shadow-[0_13px_9px_rgba(0,0,0,0.25)]`}
       >
         {/* Hamburger icon */}
@@ -98,7 +98,7 @@ const SideBar = ({ collapsed, setCollapsed, handleSingout }) => {
                 <img
                   src={adminData.admin.profileImage}
                   alt="Profile"
-                  className="w-full h-full object-cover rounded-full"
+                  className="w-[24px] h-[24px] object-cover rounded-full "
                 />
               ) : (
                 adminData?.admin?.displayName?.[0]?.toUpperCase() || "A"

@@ -39,12 +39,12 @@ const Challenge = () => {
       <Header />
       <div className="mb-6">
         <SearchBar handleOpenPopup={handleOpenPopup} setSearch={setSearch}/>
-        <button
+        {/* <button
           onClick={handleOpenPopup}
           className="mt-4 cursor-pointer text-sm sm:text-base text-white font-semibold bg-[#32302F] rounded-[5px] px-4 py-2 hover:bg-[#474747]"
         >
           Add Prize
-        </button>
+        </button> */}
 
       </div>
       <div className="grid grid-cols-2 max-sm:grid-cols-1 gap-x-[20px] gap-y-[20px] sm:gap-x-[50px] sm:gap-y-[30px] w-full">

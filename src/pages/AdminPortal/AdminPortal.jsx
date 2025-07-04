@@ -30,7 +30,7 @@ const AdminPortal = () => {
       <SideBar collapsed={collapsed} setCollapsed={setCollapsed} handleSingout={handleSingout} />
 
       <main
-        className={`absolute top-0 min-h-[100vh] transition-all duration-300 bg-[#F9FAFB] px-[40px] py-[48px] max-lg:p-[20px] max-lg:ml-0 max-lg:w-full ${collapsed
+        className={`absolute top-0 min-h-[100vh] transition-all duration-300 bg-[#F9FAFB] px-[40px] py-[48px] max-lg:p-[20px] max-lg:ml-[70px]  max-lg:w-[calc(100%-70px)] ${collapsed
           ? 'ml-[80px] w-[calc(100%-80px)]'
           : 'ml-[254px] w-[calc(100%-254px)]'
           }`}
